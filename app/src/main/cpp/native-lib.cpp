@@ -44,7 +44,7 @@ void JNICALL Java_net_monatis_apps_ocvstarter_MainActivity_setCascadePaths(JNIEn
 void JNICALL Java_net_monatis_apps_ocvstarter_MainActivity_detectEyes(JNIEnv *env, jobject instance, Mat* frame)
 {
     Mat& image = *(Mat *) frame;
-    detectAndDraw(image, &mainClassifier, &nestedClassifier, 1.3, false);
+    detectAndDraw(image, &mainClassifier, &nestedClassifier, 1.2, false);
 }
 
 void detectAndDraw( Mat& img, CascadeClassifier* cascade,
@@ -73,19 +73,19 @@ void detectAndDraw( Mat& img, CascadeClassifier* cascade,
 
     t = (double)getTickCount();
     cascade->detectMultiScale( smallImg, faces,
-                              1.1, 2, 0
+                              1.2, 1, 0
                                       //|CASCADE_FIND_BIGGEST_OBJECT
                                       //|CASCADE_DO_ROUGH_SEARCH
-                                      |CASCADE_SCALE_IMAGE,
+                                      |CV_HAAR_SCALE_IMAGE,
                               Size(30, 30) );
     if( tryflip )
     {
         flip(smallImg, smallImg, 1);
         cascade->detectMultiScale( smallImg, faces2,
-                                  1.1, 2, 0
+                                  1.2, 1, 0
                                           //|CASCADE_FIND_BIGGEST_OBJECT
                                           //|CASCADE_DO_ROUGH_SEARCH
-                                          |CASCADE_SCALE_IMAGE,
+                                          |CV_HAAR_SCALE_IMAGE,
                                   Size(30, 30) );
         for( vector<Rect>::const_iterator r = faces2.begin(); r != faces2.end(); ++r )
         {
@@ -119,11 +119,11 @@ void detectAndDraw( Mat& img, CascadeClassifier* cascade,
             continue;
         smallImgROI = smallImg( r );
         nestedCascade->detectMultiScale( smallImgROI, nestedObjects,
-                                        1.1, 2, 0
+                                        1.2, 2, 0
                                                 //|CASCADE_FIND_BIGGEST_OBJECT
                                                 //|CASCADE_DO_ROUGH_SEARCH
                                                 //|CASCADE_DO_CANNY_PRUNING
-                                                |CASCADE_SCALE_IMAGE,
+                                                |CV_HAAR_SCALE_IMAGE,
                                         Size(30, 30) );
         for ( size_t j = 0; j < nestedObjects.size(); j++ )
         {

@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.SurfaceView;
 import android.view.WindowManager;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,8 +35,9 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
 
     private static final String TAG = "OCVSample::Activity";
     String datapath = "";
-    String mainCascadeName = "haarcascade_frontalface_default.xml";
+    String mainCascadeName = "haarcascade_frontalface_alt2.xml";
     String nestedCascadeName = "haarcascade_eye_tree_eyeglasses.xml";
+    ListView listView;
 
     private CameraBridgeViewBase _cameraBridgeViewBase;
 
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
                     setCascadePaths(mainPath, nestedPath);
                     TextView mainText = (TextView) findViewById(R.id.text_main);
                     mainText.setText("Shop on mobile with augmented reality");
+                    _cameraBridgeViewBase.enableFpsMeter();
                     _cameraBridgeViewBase.enableView();
                 }
                 break;
